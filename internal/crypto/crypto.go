@@ -4,6 +4,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
+	"fmt"
 	"io"
 )
 
@@ -55,7 +56,7 @@ func (aesc *AESCryptoCipher) Decrypt(ciphertext []byte, username string) ([]byte
 
 	nonceSize := gcm.NonceSize()
 	if len(ciphertext) < nonceSize {
-		return nil, err
+		return nil, fmt.Errorf("invalid ciphertext size")
 	}
 
 	nonce, ciphertext := ciphertext[:nonceSize], ciphertext[nonceSize:]
