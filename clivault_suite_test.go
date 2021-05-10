@@ -1,4 +1,4 @@
-package clivault_test
+package main
 
 import (
 	"testing"
