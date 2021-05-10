@@ -3,21 +3,11 @@ package crypto
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"crypto/rand"
 	"fmt"
-	"io"
 )
 
 type AESCryptoCipher struct {
 	key []byte
-}
-
-func makeNonce(size int) ([]byte, error) {
-	nonce := make([]byte, size)
-	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-		return nil, err
-	}
-	return nonce, nil
 }
 
 func NewAESCryptoCipher(key []byte) *AESCryptoCipher {
@@ -35,10 +25,7 @@ func (aesc *AESCryptoCipher) Encrypt(plaintext []byte, username string) ([]byte,
 		return nil, err
 	}
 
-	nonce, err := makeNonce(aesgcm.NonceSize())
-	if err != nil {
-		return nil, err
-	}
+	nonce := randBytes(aesgcm.NonceSize())
 
 	return aesgcm.Seal(nonce, nonce, []byte(plaintext), []byte(username)), nil
 }
