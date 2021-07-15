@@ -47,7 +47,7 @@ func ParseBlob(raw []byte) *BlobInfo {
 	}
 }
 
-func WriteBlob(blob BlobInfo) []byte {
+func GenDataRecord(blob BlobInfo) []byte {
 	resultBytes := MagicNumber
 	resultBytes = append(resultBytes, Version...)
 

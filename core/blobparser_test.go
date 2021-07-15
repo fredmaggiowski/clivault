@@ -35,14 +35,14 @@ var _ = Describe("BlobParser", func() {
 		})
 	})
 
-	Context("WriteBlob", func() {
+	Context("GenDataRecord", func() {
 		It("Generates blob", func() {
 			blob := BlobInfo{
 				Salt: []byte{0x03, 0x04},
 				Blob: []byte{0x02, 0x02, 0x02},
 			}
 
-			raw := WriteBlob(blob)
+			raw := GenDataRecord(blob)
 
 			Expect(raw).To(Equal(
 				[]byte{

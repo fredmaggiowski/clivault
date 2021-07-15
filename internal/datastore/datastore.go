@@ -5,11 +5,13 @@ import (
 	"fmt"
 )
 
-type DataRecord string
+type DataRecord []byte
+
+type Blob map[string]DataRecord
 
 type DataStore interface {
-	LoadBlob(blob []byte)
-	WriteBlob(recordID string, record DataRecord) ([]byte, error)
+	LoadBlob() Blob
+	WriteBlob(recordID string, record DataRecord) error
 }
 
 type dataStoreContextKey struct{}
